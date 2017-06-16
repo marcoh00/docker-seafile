@@ -1,0 +1,74 @@
+diff -Naur old/seafile.sh new/seafile.sh
+--- old/seafile.sh	2017-06-13 07:52:41.000000000 +0200
++++ new/seafile.sh	2017-06-16 14:03:46.183960556 +0200
+@@ -133,15 +133,14 @@
+                    -d "${seafile_data_dir}" \
+                    -F "${central_config_dir}"
+ 
+-    sleep 3
++    sleep 10
+ 
+     # check if seafile server started successfully
+-    if ! pgrep -f "seafile-controller -c ${default_ccnet_conf_dir}" 2>/dev/null 1>&2; then
+-        echo "Failed to start seafile server"
+-        exit 1;
+-    fi
++    while pgrep -f "seafile-controller -c ${default_ccnet_conf_dir}" 2>/dev/null 1>&2; do
++        sleep 30
++    done
+ 
+-    echo "Seafile server started"
++    echo "Seafile server quit"
+     echo
+ }
+ 
+diff -Naur old/seahub.sh new/seahub.sh
+--- old/seahub.sh	2017-06-13 07:52:41.000000000 +0200
++++ new/seahub.sh	2017-06-16 14:15:44.020120996 +0200
+@@ -128,6 +128,7 @@
+ fi
+ 
+ function warning_if_seafile_not_running () {
++    sleep 10
+     if ! pgrep -f "seafile-controller -c ${default_ccnet_conf_dir}" 2>/dev/null 1>&2; then
+         echo
+         echo "Warning: seafile-controller not running. Have you run \"./seafile.sh start\" ?"
+@@ -161,14 +162,12 @@
+     $PYTHON $gunicorn_exe seahub.wsgi:application -c "${gunicorn_conf}" -b "0.0.0.0:${port}" --preload
+ 
+     # Ensure seahub is started successfully
+-    sleep 5
+-    if ! pgrep -f "seahub.wsgi:application" 2>/dev/null 1>&2; then
+-        printf "\033[33mError:Seahub failed to start.\033[m\n"
+-        echo "Please try to run \"./seahub.sh start\" again"
+-        exit 1;
+-    fi
++    sleep 10
++    while pgrep -f "seahub.wsgi:application" 2>/dev/null 1>&2; do
++        sleep 30
++    done
+     echo
+-    echo "Seahub is started"
++    echo "Seahub server quit"
+     echo
+ }
+ 
+@@ -185,13 +184,12 @@
+         outlog=${accesslog} errlog=${errorlog}
+ 
+     # Ensure seahub is started successfully
+-    sleep 5
+-    if ! pgrep -f "${manage_py}" 1>/dev/null; then
+-        printf "\033[33mError:Seahub failed to start.\033[m\n"
+-        exit 1;
+-    fi
++    sleep 10
++    while pgrep -f "${manage_py}" 1>/dev/null; do
++        sleep 30
++    done
+     echo
+-    echo "Seahub is started"
++    echo "Seahub server quit"
+     echo
+ }
+ 

@@ -1,0 +1,13 @@
+[Unit]
+Description=Seafile container
+Requires=docker.service
+After=docker.service
+
+[Service]
+Restart=always
+ExecStart=/usr/bin/docker run --name seafile -p 8000:8000 -p 8080:8080 -p 8082:8082 -p 9000:9000 -v "{{ ccnetpath }}:/seafile/ccnet" -v "{{ confpath }}:/seafile/conf" -v "{{ datapath }}:/seafile/seafile-data" -v "{{ logpath }}:/seafile/logs" marcoh00/seafile
+ExecStop=/usr/bin/docker stop -t 5 seafile
+ExecStopPost=/usr/bin/docker rm -f seafile
+
+[Install]
+WantedBy=default.target

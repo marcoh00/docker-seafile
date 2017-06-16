@@ -1,0 +1,10 @@
+#!/bin/bash
+
+set -e
+
+echo "-> Will set ${SEAFILE_VERSION} as the current configured version"
+echo -n "${SEAFILE_VERSION}" > /seafile/conf/docker_version
+echo "-> Wrote current version to /seafile/conf/docker_version"
+echo "-> Have a nice day!"
+
+exit 0
