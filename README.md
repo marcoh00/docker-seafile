@@ -6,7 +6,7 @@ This is a [Seafile](https://www.seafile.com) image for Docker. Seafile is a self
 
 First of all, be aware that this image will drop you to an interactive shell from time to time. It is important to start the container using the interactive and tty flags (-it) for this to work. Interactive shell happens:
 
-- On first start, so you can run the installer scripts from there. *Please do not forget to run Seafile after initial configuration_ so you can create an administrator account.
+- On first start, so you can run the installer scripts from there. *Please do not forget to run Seafile after initial configuration* so you can create an administrator account.
 - After every upgrade, so you can upgrade your installation.
 
 Just run 'seafile-updated' when you are done.
