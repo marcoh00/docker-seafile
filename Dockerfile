@@ -17,12 +17,16 @@ RUN apt-get update && \
     patch -p1 < /keep-running.patch && \
     ln -s "/seafile/seafile-server-${SEAFILE_VERSION}" "/seafile/seafile-server-latest" && \
     ln -s "/seafile/seafile-server-latest/seahub/media" "/seafile/seahub-data" && \
+    mkdir -p /seafile/logs && \
     apt-get purge -y wget ca-certificates patchutils && \
     apt-get autoremove -y && \
-    rm -rf /var/cache/apt/*
+    apt-get clean && \
+    rm -rf /var/cache/apt/* && \
+    rm -rf /var/lib/apt/lists/*
 
 ADD rootfs /
 
 EXPOSE 8000 8080 8082 9000
+VOLUME ["/seafile/ccnet", "/seafile/seafile-data", "/seafile/conf", "/seafile/logs"]
 ENTRYPOINT ["/entrypoint.sh"]
 CMD ["supervisord", "-n", "-c", "/etc/supervisor/supervisord.conf"]
