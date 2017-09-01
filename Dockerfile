@@ -10,7 +10,7 @@ COPY keep-running.patch /
 RUN apt-get update && \
     apt-get -y install --no-install-recommends --no-install-suggests wget ca-certificates patchutils procps supervisor python-setuptools python-imaging python-ldap python-mysqldb python-memcache python-urllib3 && \
     mkdir /seafile && \
-    wget -O "/seafile/seafile-current.tar.gz" "https://bintray.com/artifact/download/seafile-org/seafile/seafile-server_${SEAFILE_VERSION}_x86-64.tar.gz" && \
+    wget -O "/seafile/seafile-current.tar.gz" "https://download.seadrive.org/seafile-server_${SEAFILE_VERSION}_x86-64.tar.gz" && \
     tar xzvf /seafile/seafile-current.tar.gz -C /seafile && \
     rm /seafile/seafile-current.tar.gz && \
     cd "/seafile/seafile-server-${SEAFILE_VERSION}" && \
