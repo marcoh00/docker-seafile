@@ -1,6 +1,6 @@
 FROM debian:stretch
 
-ENV SEAFILE_VERSION 6.2.3
+ENV SEAFILE_VERSION 6.2.5
 
 # This is for patching run scripts to keep running as long as they think Seafile is still running
 # (I can't believe how dirty this is, but there is no other documentated way)
