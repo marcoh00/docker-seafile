@@ -1,6 +1,6 @@
-FROM debian:stretch
+FROM debian:buster
 
-ENV SEAFILE_VERSION 6.2.5
+ENV SEAFILE_VERSION 7.0.4
 
 # This is for patching run scripts to keep running as long as they think Seafile is still running
 # (I can't believe how dirty this is, but there is no other documentated way)
@@ -8,7 +8,7 @@ ENV SEAFILE_VERSION 6.2.5
 COPY keep-running.patch /
 
 RUN apt-get update && \
-    apt-get -y install --no-install-recommends --no-install-suggests wget ca-certificates patchutils procps supervisor python-setuptools python-imaging python-ldap python-mysqldb python-memcache python-urllib3 && \
+    apt-get -y install --no-install-recommends --no-install-suggests wget ca-certificates patchutils procps supervisor python-setuptools python-pil python-ldap python-mysqldb python-memcache python-urllib3 && \
     mkdir /seafile && \
     wget -O "/seafile/seafile-current.tar.gz" "https://download.seadrive.org/seafile-server_${SEAFILE_VERSION}_x86-64.tar.gz" && \
     tar xzvf /seafile/seafile-current.tar.gz -C /seafile && \
